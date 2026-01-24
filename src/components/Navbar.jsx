@@ -9,9 +9,9 @@ export default function Navbar() {
                 <Link to="/" className="navbar-links">
                     <img 
                     src={null} 
-                    alt="Futbolismo icon" 
+                    alt="De Primera icon" 
                     />
-                    <h3>Futbolismo</h3>
+                    <h3>De Primera</h3>
                 </Link>
             </section>
             <section className="navbar-menu">
