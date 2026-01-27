@@ -1,7 +1,7 @@
 import React from 'react'
 import useFetch from '../api/useFetch'
 import { Link } from 'react-router-dom';
-import Matches from './Matches';
+import Matches from './Matches/Matches';
 
 const FEATURED_COMPETITIONS = [2021, 2001, 2013, 2014, 2019];
 

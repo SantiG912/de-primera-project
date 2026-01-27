@@ -1,5 +1,5 @@
 import React from 'react'
-import useFetch from '../api/useFetch'
+import useFetch from '../../api/useFetch'
 import { Link } from 'react-router-dom';
 
 /* ERROR 429 === SE ALCANZO EL LIMITE DE PETICIONES !!! */

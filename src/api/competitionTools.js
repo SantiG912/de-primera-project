@@ -1,82 +1,104 @@
-const MULTI_STAGE = new Set([
-    "ROUND_1",
-    "ROUND_2",
-    "GROUP_STAGE",
-    "LEAGUE_STAGE",
-    "LAST_16",
-    "QUARTER_FINALS",
-    "SEMI_FINALS",
-    "THIRD_PLACE",
-    "FINAL"
-]);
-
 export function getCurrentMatchday(matches){
-    
+    if(!Array.isArray(matches) || matches.length === 0) return null;
+
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-    const matchdays = matches
-        .filter(m => Number.isFinite(m.matchday))
-        .sort((a, b) => a.matchday - b.matchday);
-
-    for(const match of matchdays){
-        const matchDate = new Date(match.utcDate);
-        if(matchDate >= today){
-            return match.matchday;
-        }
-    }
-
-    return matchdays.at(-1)?.matchday ?? null;
-}
-
-export function groupByStageAndMatchday(matches){
-
-    const day = Number.isFinite(matches.matchday) ? matches.matchday : 1;
-
-    const result = {};
+    const byMatchday = {};
 
     for(const match of matches){
-        const stage = match.stage;
-        if(!stage) continue;
+        if(!Number.isFinite(match.matchday)) continue;
 
-        if(!result[stage]) {
-            result[stage] = {};
+        if(!byMatchday[match.matchday]){
+            byMatchday[match.matchday] = [];
         }
-
-        if(Number.isFinite(match.matchday)){
-            if(!result[stage][match.matchday]){
-                result[stage][match.matchday] = [];
-            }
-            result[stage][match.matchday].push(match);
-        }
+        byMatchday[match.matchday].push(match);
     }
 
-    return result;
+    const matchdays = Object.entries(byMatchday)
+        .map(([day, matches]) => {
+            const dates = matches
+                .map(m => new Date(m.utcDate))
+                .filter(d => !isNaN(d));
+            
+                return {
+                    day: Number(day),
+                    matches,
+                    firstDate: new Date(Math.min(...dates))
+                };
+        })
+        .sort((a, b) => a.firstDate - b.firstDate);
 
-}
-
-export default function isValidForMatchday(stage, isMultiStage){
-    
-    return isMultiStage
-    ? MULTI_STAGE.has(stage)
-    : stage === "REGULAR_SEASON";
-    
-}
-
-export function filterMatches(matches, isMultiStage){
-    return matches.filter(match =>{
-        if(!Number.isFinite(match.matchday)) return false;
-
-        if(isMultiStage){
-            return ["GROUP_STAGE", "LEAGUE_STAGE"].includes(match.stage);
+        for(const md of matchdays){
+            if(
+                md.matches.some(
+                    m => 
+                        m.status === "IN_PLAY" ||
+                        new Date(m.utcDate).toDateString() === today.toDateString()
+                )
+            ) {
+                return md.day;
+            }
         }
 
-        return match.stage === "REGULAR_SEASON";
+        for(const md of matchdays){
+            if(md.firstDate > today){
+                return md.day;
+            }
+        }
 
-    })
+        return matchdays.at(-1)?.day ?? null;
+
 }
 
-export function isMultiStage(stages = []){
-    return stages.some(stage => 
-        stage !== "REGULAR_SEASON"
+export function getMatchdayStartDate(matches, matchday){
+    const dates = matches
+        .filter(m => m.matchday === matchday)
+        .map(m => new Date(m.utcDate))
+        .filter(d => !isNaN(d));
+
+    if(dates.length === 0) return null;
+
+    return new Date(Math.min(...dates));
+}
+
+export function getPendingMatches(matches, currentMatchday){
+    if(!Array.isArray(matches) || !currentMatchday) return [];
+    if(!Number.isFinite(currentMatchday)) return [];
+
+    return matches.filter(match => {
+        const matchday = Number(match.matchday);
+
+        if(!Number.isFinite(matchday)) return false;
+        
+        return (
+            match.status === "TIMED" &&
+            matchday < currentMatchday
+        );
+    })
+
+}
+
+export function getMatchdayByDate(matches){
+    const today = new Date();
+
+    const futureMatches = matches
+        .filter(m => Number.isFinite(m.matchday))
+        .map(m => ({
+            matchday: m.matchday,
+            date: new Date(m.utcDate)
+        }))
+        .filter(m => m.date >= today)
+        .sort((a, b) => a.date - b.date);
+
+    if(futureMatches.length > 0){
+        return futureMatches[0].matchday;
+    }
+
+    return Math.max(
+        ...matches
+            .filter(m => Number.isFinite(m.matchday))
+            .filter(m => m.status !== "SCHEDULED")
+            .filter(m => m.matchday)
     );
 }

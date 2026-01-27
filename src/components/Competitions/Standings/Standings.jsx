@@ -1,5 +1,5 @@
 import React from 'react'
-import useFetch from '../api/useFetch';
+import useFetch from '../../../api/useFetch';
 import GroupStandings from './GroupStandings';
 import LeagueStandings from './LeagueStandings';
 

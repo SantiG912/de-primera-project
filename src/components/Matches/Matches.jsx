@@ -1,6 +1,6 @@
 import React from 'react'
-import useFetch from '../api/useFetch';
-import { formatDate } from '../api/formatDate';
+import useFetch from '../../api/useFetch';
+import { formatDate } from '../../api/formatDate';
 
 export default function Matches() {
   const today = new Date().toISOString().split("T")[0];

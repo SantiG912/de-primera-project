@@ -1,5 +1,5 @@
 import React from 'react'
-import useFetch from '../api/useFetch';
+import useFetch from '../../../api/useFetch';
 
 export default function Scorers({competitionId}) {
     const {
