@@ -67,16 +67,11 @@ export function getPendingMatches(matches, currentMatchday){
     if(!Number.isFinite(currentMatchday)) return [];
 
     return matches.filter(match => {
-        const matchday = Number(match.matchday);
-
-        if(!Number.isFinite(matchday)) return false;
-        
-        return (
-            match.status === "TIMED" &&
-            matchday < currentMatchday
-        );
-    })
-
+        if(match.status !== "TIMED") return false;
+        if(!Number.isFinite(match.matchday)) return false;
+ 
+        return match.matchday < currentMatchday;
+    });
 }
 
 export function getMatchdayByDate(matches){
@@ -101,4 +96,8 @@ export function getMatchdayByDate(matches){
             .filter(m => m.status !== "SCHEDULED")
             .filter(m => m.matchday)
     );
+}
+
+export function isRegularStage(stage){
+    return stage === "GROUP_STAGE" || stage === "LEAGUE_STAGE";
 }
