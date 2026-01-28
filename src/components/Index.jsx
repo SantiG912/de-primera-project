@@ -3,7 +3,7 @@ import useFetch from '../api/useFetch'
 import { Link } from 'react-router-dom';
 import Matches from './Matches/Matches';
 
-const FEATURED_COMPETITIONS = [2021, 2001, 2013, 2014, 2019];
+const FEATURED_COMPETITIONS = [2152, 2021, 2001, 2013, 2014, 2019];
 
 export default function Index() {
   const {data, loading, error} = useFetch("competitions");
