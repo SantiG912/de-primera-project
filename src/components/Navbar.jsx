@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faFutbol} from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -7,10 +9,7 @@ export default function Navbar() {
         <section className="navbar-content">
             <section className="navbar-icon">
                 <Link to="/" className="navbar-links">
-                    <img 
-                    src={null} 
-                    alt="De Primera icon" 
-                    />
+                    <FontAwesomeIcon icon={faFutbol}/>
                     <h3>De Primera</h3>
                 </Link>
             </section>

@@ -1,4 +1,1 @@
-img{
-    width: 24px;
-    height: 24px;
-}
+@import url("./styles/format.css");
