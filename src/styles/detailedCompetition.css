@@ -1,0 +1,73 @@
+.competition-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: var(--two-rem);
+    margin-bottom: var(--one-rem);
+    position: relative;
+
+    &::before{
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 4px;
+        background: linear-gradient(
+            to right,
+            transparent,
+            var(--primary-color),
+            transparent
+        );
+        border-radius: 4px;
+    }
+}
+.competition-header img{
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: var(--one-rem);
+}
+
+.standings-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.group-section{
+    width: 800px;
+    height: fit-content;
+    margin-bottom: var(--one-rem);
+    padding: var(--point-five-rem);
+    border-bottom: 1px solid #ccc;
+}
+.group-section h3{
+    text-align: center;
+    margin-bottom: var(--one-rem);
+    color: var(--font-color);
+    font-weight: var(--bold-font);
+}
+.group-section table{
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+.group-section th, .group-section td{
+    padding: var(--point-five-rem);
+    text-align: center;
+}
+.group-section th{
+    color: var(--font-color);
+    font-weight: var(--bold-font);
+}
+.group-section td{
+    color: var(--font-color);
+    font-weight: var(--regular-font);
+}
+.group-section td.team-name{
+    text-align: left;
+    padding-left: var(--one-rem);
+}

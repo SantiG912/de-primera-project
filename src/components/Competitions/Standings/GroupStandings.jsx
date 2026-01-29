@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function GroupStandings({standings}) {
   return(
-  <>
+  <section className="standings-container">
     {standings?.map(group => (
         <section key={group.group} className="group-section">
             <h3>{group.group.replace("Group", "Grupo")}</h3>
@@ -26,7 +26,7 @@ export default function GroupStandings({standings}) {
                         (team) => (                                        
                             <tr key={team.team.id}>
                                 <td>{team.position}</td>
-                                <td>
+                                <td className="team-name">
                                     <img 
                                     src={team.team.crest} 
                                     alt="" 
@@ -47,6 +47,6 @@ export default function GroupStandings({standings}) {
             </table>
         </section>
     ))}
-  </>
+  </section>
   )
 }

@@ -1,0 +1,113 @@
+.featured-matches{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: var(--one-rem);
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: var(--two-rem);
+}
+.today-matches{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 80%;
+    background-color: var(--primary-active-color);
+    margin-top: var(--one-rem);
+
+    &::before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 3px;
+        background-color: var(--primary-color);
+        bottom: 0;
+        left: 0;
+        top: var(--two-rem);
+        border-radius: 8px;
+    }
+
+}
+.today-matches h3{
+    color: var(--font-color);
+    font-weight: var(--regular-font);
+}
+.matches-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: fit-content;
+    max-width: 1200px;
+    margin-top: var(--one-rem);
+    margin-bottom: var(--two-rem);
+}
+.matchday-table{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    height: fit-content;
+    &::before{
+        content: "";
+        position: absolute;
+        top: calc(100% + 0.75rem);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(
+            to right,
+            transparent,
+            var(--primary-color),
+            transparent
+        );
+        border-radius: 4px;
+    }    
+}
+.competition-crest{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    height: fit-content;
+    margin-left: 0;
+    bottom: var(--one-rem);
+}
+.competition-crest img{
+    width: 50px;
+    height: 50px;
+}
+.match-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+    margin-top: var(--one-rem);
+}
+.match-status{
+    width: 5%;
+    margin: 0 auto;
+    padding-left: var(--point-five-rem);
+}
+.match-center{
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+.match-center svg{
+    width: 24px;
+    height: 24px;
+    margin: 0 var(--one-rem);
+}
+.match-date{
+    width: fit-content;
+    margin: 0 auto;
+    padding-left: var(--point-five-rem);
+}

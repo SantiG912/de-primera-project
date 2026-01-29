@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react'
 import MatchCard from './MatchCard';
 import PendingMatches from './PendingMatches';
 import { getCurrentMatchday, isRegularStage } from '../../api/competitionTools';
+import DePrimeraIcon from '../icons/DePrimeraIcon';
+import AtentionIcon from '../icons/AtentionIcon';
 
 export default function CupMatches({matches, pendingMatches}) {
   const [selectedStage, setSelectedStage] = useState(null);
@@ -57,42 +59,58 @@ export default function CupMatches({matches, pendingMatches}) {
     ? matchesByMatchday[selectedMatchday] ?? []
     : stageMatches
 
-  if(!stages.length) return <p>No hay jornadas disponibles...</p>
+  if(!stages.length) return (
+      <section className="index-container">
+          <section className="error-container">
+              <DePrimeraIcon />
+              <AtentionIcon />
+              <p>No hay jornadas disponibles.</p>
+          </section>
+      </section>
+  );
 
   return (
     <>
-      <select
-        value={selectedStage ?? ""}
-        onChange={e => {
-          setSelectedStage(e.target.value)
-          setSelectedMatchday(null)
-        }}
-      >
-        {stages.map(stage => (
-          <option key={stage} value={stage}>
-            {stage}
-          </option>
-        ))}
-      </select>
+    <section className="featured-matches">
+      <section className="matches-container">
+        <span className="matchday-select">
+          <select
+            value={selectedStage ?? ""}
+            onChange={e => {
+              setSelectedStage(e.target.value)
+              setSelectedMatchday(null)
+            }}
+          >
+            {stages.map(stage => (
+              <option key={stage} value={stage}>
+                {stage}
+              </option>
+            ))}
+          </select>
 
-      {isRegularStage(selectedStage) && (
-        <select
+        {isRegularStage(selectedStage) && (
+          <select
           value={selectedMatchday ?? ""}
           onChange={e => setSelectedMatchday(Number(e.target.value))}
-        >
-          {matchdays.map(day => (
-            <option key={day} value={day}>
-              Jornada {day}
-            </option>
+          >
+            {matchdays.map(day => (
+              <option key={day} value={day}>
+                Jornada {day}
+              </option>
+            ))}
+          </select>
+        )}
+        </span>
+        
+        <section className="matchday-table">
+          {matchesToRender.map(match => (
+            <MatchCard key={match.id} match={match}/>
           ))}
-        </select>
-      )}
-      
-      {matchesToRender.map(match => (
-        <MatchCard key={match.id} match={match}/>
-      ))}
 
-      <PendingMatches matches={pendingMatches}/>
+          <PendingMatches matches={pendingMatches}/>
+        </section>
+      </section>
+    </section>
     </>
   );
 }

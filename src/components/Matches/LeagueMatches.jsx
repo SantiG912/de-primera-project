@@ -31,24 +31,32 @@ export default function LeagueMatches({matches, pendingMatches}) {
 
   return (
     <>
-      <select
-        value={selectedMatchday ?? ""}
-        onChange={e => setSelectedMatchday(Number(e.target.value))}
-      >
-        {Object.keys(matchesByMatchday)
-          .sort((a, b) => a - b)
-          .map(day => (
-            <option key={day} value={day}>
-              Jornada {day}
-            </option>
+    <section className="featured-matches">
+      <section className="matches-container">
+        <span className="matchday-selector">
+          <select
+            value={selectedMatchday ?? ""}
+            onChange={e => setSelectedMatchday(Number(e.target.value))}
+          >
+            {Object.keys(matchesByMatchday)
+              .sort((a, b) => a - b)
+              .map(day => (
+                <option key={day} value={day}>
+                  Jornada {day}
+                </option>
+              ))}
+          </select>
+        </span>
+        <section className="matchday-table">
+          {visibleMatches.map(match => (
+            <MatchCard key={match.id} match={match}/>
           ))}
-      </select>
 
-      {visibleMatches.map(match => (
-        <MatchCard key={match.id} match={match}/>
-      ))}
+        <PendingMatches matches={pendingMatches}/>
+        </section>
 
-      <PendingMatches matches={pendingMatches}/>
+      </section>
+    </section>
     </>
   );
 }

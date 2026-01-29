@@ -1,5 +1,8 @@
 import React from 'react'
 import useFetch from '../../../api/useFetch';
+import DePrimeraIcon from '../../icons/DePrimeraIcon';
+import ErrorIcon from '../../icons/ErrorIcon';
+import AtentionIcon from '../../icons/AtentionIcon';
 
 export default function Scorers({competitionId}) {
     const {
@@ -8,11 +11,53 @@ export default function Scorers({competitionId}) {
         error: scorersError
     } = useFetch(`competitions/${competitionId}/scorers`);
     
-    if (scorersLoading || scorersData === null){return <p>Cargando estadísticas...</p>;}
-    if (scorersError){return <p>Error cargando las estadísticas: {scorersError}</p>;}
-    if (!scorersData){return <p>No hay respuesta del servidor</p>;}
-    if (!Array.isArray(scorersData.scorers)){return <p>No hay estadísticas disponibles</p>;}
-    if (scorersData.scorers.length === 0){return <p>No hay goleadores</p>;}
+    if (scorersLoading || scorersData === null) return (
+        <section className="index-container">
+            <section className="loading-container">
+                <DePrimeraIcon />
+                <p>Cargando...</p>
+            </section>
+        </section>
+    );
+
+    if (scorersError) return (
+        <section className="index-container">
+            <section className="error-container">
+                <DePrimeraIcon />
+                <ErrorIcon />
+                <p>Ha ocurrido un error. Intenta recargar la página. <br /> {scorersError}</p>
+            </section>
+        </section>
+    );
+    if (!scorersData) return (
+        <section className="index-container">
+            <section className="error-container">
+                <DePrimeraIcon />
+                <ErrorIcon />
+                <p>Ha ocurrido un error. Intenta recargar la página.</p>
+            </section>
+        </section>
+    );
+
+    if (!Array.isArray(scorersData.scorers)) return (
+        <section className="index-container">
+            <section className="error-container">
+                <DePrimeraIcon />
+                <ErrorIcon />
+                <p>Ha ocurrido un error. Intenta recargar la página.</p>
+            </section>
+        </section>
+    );
+    
+    if (scorersData.scorers.length === 0) return (
+        <section className="index-container">
+            <section className="error-container">
+                <DePrimeraIcon />
+                <AtentionIcon />
+                <p>No hay información disponible.</p>
+            </section>
+        </section>
+    );
     
     return (
         <section className="scorers-container">
