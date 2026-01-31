@@ -7,10 +7,10 @@ export default function LeagueStandings({table}) {
                 <table>
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th className="team-position">#</th>
                             <th className="team-name">Equipo</th>
-                            <th>PJ</th>
-                            <th>Puntos</th>
+                            <th className="team-played">PJ</th>
+                            <th className="team-points">Puntos</th>
                             <th>PG</th>
                             <th>PE</th>
                             <th>PP</th>
@@ -23,7 +23,7 @@ export default function LeagueStandings({table}) {
                         {table?.map(
                             (team) => (                                        
                                 <tr key={team.team.id}>
-                                    <td>{team.position}</td>
+                                    <td className="team-position">{team.position}</td>
                                     <td className="team-name">
                                         <img 
                                         src={team.team.crest} 
@@ -31,8 +31,8 @@ export default function LeagueStandings({table}) {
                                         />
                                         {team.team.name}
                                     </td>
-                                    <td>{team.playedGames}</td>
-                                    <td>{team.points}</td>
+                                    <td className="team-played">{team.playedGames}</td>
+                                    <td className="team-points">{team.points}</td>
                                     <td>{team.won}</td>
                                     <td>{team.draw}</td>
                                     <td>{team.lost}</td>

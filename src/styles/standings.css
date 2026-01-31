@@ -6,47 +6,105 @@
 }
 
 .standings-section{
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
     height: fit-content;
+    overflow-x: auto;
     margin-bottom: var(--one-rem);
     padding: var(--point-five-rem);
 }
+
 .standings-section h3{
     text-align: center;
     margin-bottom: var(--one-rem);
     color: var(--font-color);
     font-weight: var(--bold-font);
 }
+
 .standings-section table{
-    display: table;
     width: 100%;
+    min-width: 700px;
     border-collapse: collapse;
+    table-layout: fixed;
 }
+
 .standings-section tr{
     border-bottom: 1px solid var(--secondary-color-active);
 }
-.standings-section th, .standings-section td{
+
+.standings-section th,
+.standings-section td{
     padding: var(--point-five-rem);
     text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
+
 .standings-section th{
     color: var(--font-color);
     font-weight: var(--bold-font);
 }
+
 .standings-section td{
     color: var(--font-color);
     font-weight: var(--regular-font);
 }
-.standings-section td.team-name, th.team-name{
+
+.standings-section th.team-name,
+.standings-section td.team-name{
     text-align: left;
     padding-left: var(--one-rem);
 }
+
 .qualified-team{
     background-color: var(--qualified-color);
 }
+
 .playoff-team{
     background-color: var(--playoff-color);
 }
+
 .relegation-team{
     background-color: var(--relegation-color);
+}
+
+@media (max-width: 786px) {
+    .standings-section table {
+        min-width: 600px;
+    }
+
+    .standings-section th:nth-child(n+5),
+    .standings-section td:nth-child(n+5) {
+        display: none;
+    }
+
+    .team-name {
+        width: 150px;
+    }
+
+    .team-position,
+    .team-played {
+        width: 45px;
+    }
+
+    .team-points {
+        width: 70px;
+    }
+}
+
+@media (max-width: 639px) {
+    .standings-section table {
+        min-width: 360px;
+    }
+
+    .team-name {
+        width: 100px;
+    }
+
+    .standings-section th,
+    .standings-section td {
+        padding: 0.35rem;
+        font-size: 0.75rem;
+    }
 }

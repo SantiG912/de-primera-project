@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: var(--primary-color);
+    width: 100%;
 }
 .navbar-content{
     display: flex;
@@ -11,6 +12,7 @@
     align-items: center;
     gap: var(--one-rem);
     width: 100%;
+    transition: all 0.3s ease-in-out;
 }
 .navbar-icon{
     padding: var(--point-five-rem) var(--one-rem);
@@ -19,6 +21,7 @@
 .navbar-icon .navbar-links{
     display: flex;
     align-items: center;
+    white-space: nowrap;
     gap: var(--one-rem);
     padding: var(--one-rem);
 }
@@ -26,6 +29,12 @@
     color: var(--navbar-font-color);
     font-weight: var(--bold-font);
     font-size: var(--two-rem);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        width 0.3s ease,
+        margin 0.3s ease;
 }
 .navbar-icon svg{
     height: var(--two-rem);
@@ -37,7 +46,6 @@
     will-change: transform;
     animation-fill-mode: both;
 }
-
 @keyframes spinBounce {
     0% {
         transform: translateY(0) rotate(0deg);
@@ -121,5 +129,64 @@
         bottom: 0;
         left: 0;
         border-radius: 4px;
+    }
+}
+
+
+.navbar-transparent{
+    background-color: #0C7C5990;
+    backdrop-filter: blur(8px);
+}
+.navbar-compact{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: all 0.5s ease;
+}
+.navbar-compact .navbar-content{
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--point-five-rem);
+}
+.navbar-compact .navbar-icon h3{
+    opacity: 0;
+    transform: translateX(-8px);
+    width: 0;
+    margin: 0;
+    overflow: hidden;
+    height: 20px;
+}
+.navbar-compact .navbar-links{
+    bottom: 0;
+
+    &::before{
+        background-color: var(--primary-color);
+    }
+}
+.navbar-compact .navbar-links-active{
+    background-color: #0000003b;
+}
+
+@media(max-width: 768px){
+    .navbar-content{
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--point-five-rem);
+    }
+    .navbar-icon h3{
+        display: none;
+    }
+    .navbar-compact{
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        transition: all 0.5s ease;
+    }
+    .navbar-compact .navbar-content{
+        flex-direction: column;
+        gap: var(--point-five-rem);
     }
 }

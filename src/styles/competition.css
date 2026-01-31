@@ -57,3 +57,33 @@
 .competition-name h3{
     font-weight: var(--regular-font);
 }
+
+@media (max-width: 1200px) {
+    .competition-grid{
+        grid-template-columns: repeat(2, 325px);
+    }
+}
+
+@media (max-width: 768px) {
+    .competition-grid{
+        grid-template-columns: repeat(2, 232px);
+    }
+    .competition-card{
+        width: 232px;
+    }
+    .competition-card img{
+        width: 80px;
+        height: 80px;
+    }
+    .competition-card h3{
+        font-size: var(--one-rem);
+    }
+}
+@media (max-width: 520px){
+    .competition-grid{
+        grid-template-columns: repeat(2, 150px);
+    }
+    .competition-card{
+        width: 150px;
+    }
+}

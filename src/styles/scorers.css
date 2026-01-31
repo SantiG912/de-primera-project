@@ -1,30 +1,93 @@
 .scorers-container{
     display: flex;
-    align-items: center;
     justify-content: center;
-    width: fit-content;
+    width: 100%;
     max-width: 800px;
     margin: var(--one-rem);
+    overflow-x: auto;
 }
+
 .scorers-section{
-    display: table;
     width: 100%;
 }
+
 .scorers-section table{
-    display: table;
     width: 100%;
+    min-width: 600px;
     border-collapse: collapse;
+    table-layout: fixed;
 }
-.scorers-section th, .scorers-section td{
-    padding: var(--point-five-rem);
-    text-align: center;
-}
+
 .scorers-section tr{
     border-bottom: 1px solid var(--secondary-color-active);
 }
-.scorers-section td.player-name, th.player-name{
-    display: flex;
-    align-items: center;
-    gap: var(--one-rem);
+
+.scorers-section th,
+.scorers-section td{
+    padding: var(--point-five-rem);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.scorers-section th{
+    font-weight: var(--bold-font);
+}
+
+.scorers-section td{
+    font-weight: var(--regular-font);
+}
+
+.scorers-section th.player-name,
+.scorers-section td.player-name{
     text-align: left;
+    padding-left: var(--one-rem);
+}
+
+.player-name{
+    width: 220px;
+}
+
+.player-goals{
+    width: 60px;
+}
+
+.player-team{
+    width: 140px;
+}
+
+@media (max-width: 786px){
+    .scorers-section table{
+        min-width: 500px;
+    }
+
+    .scorers-section th:nth-child(n+4),
+    .scorers-section td:nth-child(n+4){
+        display: none;
+    }
+
+    .player-name{
+        width: 160px;
+    }
+
+    .player-team{
+        width: 100px;
+    }
+}
+
+@media (max-width: 639px){
+    .scorers-section table{
+        min-width: 360px;
+    }
+
+    .player-name{
+        width: 120px;
+    }
+
+    .scorers-section th,
+    .scorers-section td{
+        padding: 0.35rem;
+        font-size: 0.75rem;
+    }
 }

@@ -53,3 +53,18 @@
     height: 5rem;
     fill: var(--error-color);
 }
+
+@media (max-width: 768px) {
+    .index-container{
+        max-width: 100%;
+        padding: 0 var(--one-rem);
+    }
+    .loading-container svg{
+        width: 7rem;
+        height: 7rem;
+    }
+    .atention-container svg, .error-container svg{
+        width: 4rem;
+        height: 4rem;
+    }
+}

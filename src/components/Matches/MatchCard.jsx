@@ -8,7 +8,7 @@ export default function MatchCard({match}) {
       <section className="match-section">
         <span className="match-status">
             {match.status === "FINISHED" && <p>Final</p>}
-            {match.status === "PAUSED" && <p>Entretiempo</p>}
+            {match.status === "PAUSED" && <p className="live-match">Entretiempo</p>}
             {match.status === "IN_PLAY" && <p className="live-match">En vivo</p>}
         </span>
         <section className="match-center">
