@@ -12,8 +12,19 @@ export default function Matches() {
     `matches?dateFrom=${today}&dateTo=${today}`
   );
   console.log(data);
-  
-  const competition = data?.matches[0]?.competition;
+
+  const matchesByCompetition = data?.matches?.reduce((acc, match) => {
+    const competitionId = match.competition.id;
+    if(!acc[competitionId]){
+      acc[competitionId] = {
+        competition: match.competition,
+        matches: [],
+      };  
+    }
+
+    acc[competitionId].matches.push(match);
+    return acc;
+  }, {});
 
   if(loading || data === null) return (
     <section className="index-container">
@@ -46,21 +57,24 @@ export default function Matches() {
 
   return (
     <section className="matches-container">
-      <span className="competition-crest">
-        <img 
-          src={competition.emblem} 
-          alt={competition.name} 
-        />
-      </span>
-      <section className="matchday-table">
+    {Object.values(matchesByCompetition).map(group => (
+      <section key={group.competition.id} className="competition-group">
 
-        {data.matches.map(match => (
+        <span className="competition-crest">
+          <img
+            src={group.competition.emblem}
+            alt={group.competition.name}
+          />
+        </span>
 
-          <MatchCard key={match.id} match={match}/>
+        <section className="matchday-table">
+          {group.matches.map(match => (
+            <MatchCard key={match.id} match={match} />
+          ))}
+        </section>
 
-        ))}
-      
       </section>
+    ))}
     </section>
   );
 }

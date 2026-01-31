@@ -31,7 +31,7 @@ export default function Competitions() {
     
     if (!data) return (
         <section className="index-container">
-            <section className="error-container">
+            <section className="atention-container">
                 <DePrimeraIcon />
                 <AtentionIcon />
                 <p>No hay respuesta del servidor.</p>
@@ -41,7 +41,7 @@ export default function Competitions() {
 
     if (!Array.isArray(data.competitions)) return (
         <section className="index-container">
-            <section className="error-container">
+            <section className="atention-container">
                 <DePrimeraIcon />
                 <AtentionIcon />
                 <p>No hay datos disponibles.</p>
@@ -51,7 +51,7 @@ export default function Competitions() {
 
     if (data.competitions.length === 0) return (
         <section className="index-container">
-            <section className="error-container">
+            <section className="atention-container">
                 <DePrimeraIcon />
                 <AtentionIcon />
                 <p>No hay datos disponibles.</p>

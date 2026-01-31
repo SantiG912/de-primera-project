@@ -37,7 +37,7 @@ export default function DetailedCompetition() {
 
     if(!competitionData)return (
         <section className="index-container">
-            <section className="error-container">
+            <section className="atention-container">
                 <DePrimeraIcon />
                 <AtentionIcon />
                 <p>No hay respuesta del servidor.</p>

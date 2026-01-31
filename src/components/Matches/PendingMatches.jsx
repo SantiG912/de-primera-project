@@ -7,7 +7,7 @@ export default function PendingMatches({matches}) {
 
     return (
         <section className="pending-matches">
-            <span className="pending-badge">
+            <span className="pending-text">
                 Pendientes
             </span>
             {matches.map(match => (

@@ -4,9 +4,9 @@ export default function GroupStandings({standings}) {
   return(
   <section className="standings-container">
     {standings?.map(group => (
-        <section key={group.group} className="group-section">
+        <section key={group.group} className="standings-section">
             <h3>{group.group.replace("Group", "Grupo")}</h3>
-            <table className="team-standings">
+            <table>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -24,7 +24,16 @@ export default function GroupStandings({standings}) {
                 <tbody>
                     {group.table.map(
                         (team) => (                                        
-                            <tr key={team.team.id}>
+                            <tr 
+                                key={team.team.id}
+                                className={
+                                    team.position <= 2
+                                    ? "qualified-team"
+                                    : team.position === 3
+                                    ? "playoff-team"
+                                    : ""
+                                }
+                            >
                                 <td>{team.position}</td>
                                 <td className="team-name">
                                     <img 

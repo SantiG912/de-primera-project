@@ -1,0 +1,30 @@
+.scorers-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    max-width: 800px;
+    margin: var(--one-rem);
+}
+.scorers-section{
+    display: table;
+    width: 100%;
+}
+.scorers-section table{
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+.scorers-section th, .scorers-section td{
+    padding: var(--point-five-rem);
+    text-align: center;
+}
+.scorers-section tr{
+    border-bottom: 1px solid var(--secondary-color-active);
+}
+.scorers-section td.player-name, th.player-name{
+    display: flex;
+    align-items: center;
+    gap: var(--one-rem);
+    text-align: left;
+}

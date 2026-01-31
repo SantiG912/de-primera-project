@@ -5,6 +5,7 @@ import PendingMatches from './PendingMatches';
 
 export default function LeagueMatches({matches, pendingMatches}) {
   const [selectedMatchday, setSelectedMatchday] = useState(null);
+  const [isMatchdayOpen, setIsMatchdayOpen] = useState(false);
 
   const matchesByMatchday = useMemo(() => {
     return matches.reduce((acc, match) => {
@@ -32,29 +33,42 @@ export default function LeagueMatches({matches, pendingMatches}) {
   return (
     <>
     <section className="featured-matches">
-      <section className="matches-container">
-        <span className="matchday-selector">
-          <select
-            value={selectedMatchday ?? ""}
-            onChange={e => setSelectedMatchday(Number(e.target.value))}
-          >
-            {Object.keys(matchesByMatchday)
-              .sort((a, b) => a - b)
-              .map(day => (
-                <option key={day} value={day}>
-                  Jornada {day}
-                </option>
-              ))}
-          </select>
-        </span>
-        <section className="matchday-table">
-          {visibleMatches.map(match => (
-            <MatchCard key={match.id} match={match}/>
-          ))}
+      <section className="matches-wrapper">
+        <section className="matches-container">
+          <span className="matchday-selector">
+            <button
+              className="dropdown-trigger"
+              onClick={() => setIsMatchdayOpen(!isMatchdayOpen)}
+            >
+              {selectedMatchday ? `Jornada ${selectedMatchday}` : "Seleccionar jornada"}
+              <span className="chevron">▾</span>
+            </button>
 
-        <PendingMatches matches={pendingMatches}/>
+            {isMatchdayOpen && (
+              <ul className="dropdown-menu">
+                {Object.keys(matchesByMatchday)
+                  .sort((a, b) => a - b)
+                  .map(day => (
+                    <li
+                      key={day}
+                      onClick={() => {
+                        setSelectedMatchday(day)
+                        setIsMatchdayOpen(false)
+                      }}
+                    >
+                      Jornada {day}
+                    </li>
+                ))}
+              </ul>
+            )}
+          </span>
+          <section className="matchday-table">
+            {visibleMatches.map(match => (
+              <MatchCard key={match.id} match={match}/>
+            ))}
+          <PendingMatches matches={pendingMatches}/>
+          </section>
         </section>
-
       </section>
     </section>
     </>

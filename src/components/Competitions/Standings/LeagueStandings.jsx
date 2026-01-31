@@ -3,12 +3,12 @@ import React from 'react'
 export default function LeagueStandings({table}) {
   return (
         <section className="standings-container">
-            <section className="standings-table">
-                <table className="team-standings">
+            <section className="standings-section">
+                <table>
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Equipo</th>
+                            <th className="team-name">Equipo</th>
                             <th>PJ</th>
                             <th>Puntos</th>
                             <th>PG</th>
@@ -24,7 +24,7 @@ export default function LeagueStandings({table}) {
                             (team) => (                                        
                                 <tr key={team.team.id}>
                                     <td>{team.position}</td>
-                                    <td>
+                                    <td className="team-name">
                                         <img 
                                         src={team.team.crest} 
                                         alt="" 

@@ -8,7 +8,20 @@ import AtentionIcon from '../icons/AtentionIcon';
 export default function CupMatches({matches, pendingMatches}) {
   const [selectedStage, setSelectedStage] = useState(null);
   const [selectedMatchday, setSelectedMatchday] = useState(null);
+  const [isStageOpen, setIsStageOpen] = useState(false);
+  const [isMatchdayOpen, setIsMatchdayOpen] = useState(false);
   
+  const STAGE_LABELS = {
+    ROUND_1: "Primera ronda",
+    ROUND_2: "Segunda ronda",
+    LEAGUE_STAGE: "Liga",
+    GROUP_STAGE: "Fase de grupos",
+    PLAYOFFS: "Playoffs",
+    LAST_16: "Octavos de final",
+    QUARTER_FINALS: "Cuartos de final",
+    SEMI_FINALS: "Semifinales",
+    FINAL: "Final",
+  }
   
   const matchesByStage = useMemo(() => {
     return matches.reduce((acc, match) => {
@@ -61,7 +74,7 @@ export default function CupMatches({matches, pendingMatches}) {
 
   if(!stages.length) return (
       <section className="index-container">
-          <section className="error-container">
+          <section className="atention-container">
               <DePrimeraIcon />
               <AtentionIcon />
               <p>No hay jornadas disponibles.</p>
@@ -72,42 +85,67 @@ export default function CupMatches({matches, pendingMatches}) {
   return (
     <>
     <section className="featured-matches">
-      <section className="matches-container">
-        <span className="matchday-select">
-          <select
-            value={selectedStage ?? ""}
-            onChange={e => {
-              setSelectedStage(e.target.value)
-              setSelectedMatchday(null)
-            }}
-          >
-            {stages.map(stage => (
-              <option key={stage} value={stage}>
-                {stage}
-              </option>
-            ))}
-          </select>
+      <section className="matches-wrapper">
+        <section className="matches-container">
+          <span className="stage-selector">
+            <button
+             className="dropdown-trigger"
+             onClick={() => setIsStageOpen(!isStageOpen)}
+            >
+              {selectedStage ? STAGE_LABELS[selectedStage] : "Seleccionar fase"}
+              <span className="chevron">▾</span>
+            </button>
+            {isStageOpen && (
+              <ul className="dropdown-menu">
+                {stages.map(stage => (
+                  <li key={stage}
+                    onClick={() =>  {
+                      setSelectedStage(stage)
+                      setSelectedMatchday(null)
+                      setIsStageOpen(false)
+                    }}
+                  >
+                    {STAGE_LABELS[stage]}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </span>
+          {isRegularStage(selectedStage) && (
+            <span className="matchday-selector">
+              <button
+                className="dropdown-trigger"
+                onClick={() => setIsMatchdayOpen(!isMatchdayOpen)}
+              >
+                {selectedMatchday ? `Jornada ${selectedMatchday}` : "Seleccionar jornada"}
+                <span className="chevron">▾</span>
+              </button>
 
-        {isRegularStage(selectedStage) && (
-          <select
-          value={selectedMatchday ?? ""}
-          onChange={e => setSelectedMatchday(Number(e.target.value))}
-          >
-            {matchdays.map(day => (
-              <option key={day} value={day}>
-                Jornada {day}
-              </option>
+              {isMatchdayOpen && (
+                <ul className="dropdown-menu">
+                  {matchdays.map(day => (
+                    <li
+                      key={day}
+                      onClick={() => {
+                        setSelectedMatchday(day)
+                        setIsMatchdayOpen(false)
+                      }}
+                    >
+                      Jornada {day}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </span>
+          )}
+          
+          <section className="matchday-table">
+            {matchesToRender.map(match => (
+              <MatchCard key={match.id} match={match}/>
             ))}
-          </select>
-        )}
-        </span>
-        
-        <section className="matchday-table">
-          {matchesToRender.map(match => (
-            <MatchCard key={match.id} match={match}/>
-          ))}
 
-          <PendingMatches matches={pendingMatches}/>
+            <PendingMatches matches={pendingMatches}/>
+          </section>
         </section>
       </section>
     </section>

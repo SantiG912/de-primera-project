@@ -6,3 +6,50 @@
     align-self: center;
     margin: 0 auto;
 }
+
+.loading-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    color: var(--primary-color);
+}
+.loading-container svg{
+    width: 10rem;
+    height: 10rem;
+    fill: var(--primary-color);
+    animation: roll 1.2s linear infinite;
+}
+@keyframes roll {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.atention-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--one-rem);
+}
+.atention-container svg{
+    width: 5rem;
+    height: 5rem;
+    fill: var(--warning-color);
+}
+.error-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--one-rem);
+}
+.error-container svg{
+    width: 5rem;
+    height: 5rem;
+    fill: var(--error-color);
+}

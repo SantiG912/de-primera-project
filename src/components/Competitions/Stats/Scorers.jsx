@@ -51,7 +51,7 @@ export default function Scorers({competitionId}) {
     
     if (scorersData.scorers.length === 0) return (
         <section className="index-container">
-            <section className="error-container">
+            <section className="atention-container">
                 <DePrimeraIcon />
                 <AtentionIcon />
                 <p>No hay información disponible.</p>
@@ -61,11 +61,11 @@ export default function Scorers({competitionId}) {
     
     return (
         <section className="scorers-container">
-            <section className="scorers-table">
-                <table className="scorers-standings">
+            <section className="scorers-section">
+                <table>
                     <thead>
                         <tr>
-                            <th>Jugador</th>
+                            <th className="player-name">Jugador</th>
                             <th>Goles</th>
                             <th>Asistencias</th>
                             <th>PJ</th>
@@ -76,7 +76,7 @@ export default function Scorers({competitionId}) {
                         {scorersData?.scorers.map(
                             (scorer) => (
                                 <tr key={scorer.player.id}>
-                                    <td>
+                                    <td className="player-name">
                                         <img 
                                         src={scorer.team.crest} 
                                         alt={scorer.team.shortName} 
